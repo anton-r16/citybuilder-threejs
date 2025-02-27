@@ -19,17 +19,9 @@ html, body {
 
 #instructions {
   position: absolute;
-  color: white;
+  color: #00000055;
   left: 0;
   top: 0;
-  margin: 8px;
-}
-
-#version {
-  position: absolute;
-  color: white;
-  right: 0;
-  bottom: 0;
   margin: 8px;
 }
 
@@ -46,20 +38,14 @@ html, body {
   justify-content: center;
 }
 
-.container {
-  background-color: #00000048;
-  padding: 8px;
-  margin: 16px;
-  border-radius: 16px;
-  box-shadow: 0 2px 0 0px #023a71;
-}
-
 #ui-toolbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   position: fixed;
   bottom: 8px;
+  left: 8px;
+  right: 8px;
   border-radius: 48px;
   width: calc(100vw - 16px - 16px);
   padding: 8px;
@@ -142,7 +128,7 @@ html, body {
   right: 8px;
   padding: 16px;
   width: 320px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #00000055;;
   border-radius: 48px;
   font-family: Tahoma, sans-serif;
 }

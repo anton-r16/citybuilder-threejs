@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import viteConfig from '../../../vite.config.js';
+import viteConfig from '../config.js';
 import models from './models.js';
 
 const baseUrl = viteConfig.base;
@@ -10,15 +10,15 @@ export class AssetManager {
   modelLoader = new GLTFLoader();
 
   textures = {
-    'base': this.#loadTexture(`${baseUrl}textures/base.png`),
-    'specular': this.#loadTexture(`${baseUrl}textures/specular.png`),
-    'grid': this.#loadTexture(`${baseUrl}textures/grid.png`),
+    'base': this.#loadTexture(`textures/base.png`),
+    'specular': this.#loadTexture(`textures/specular.png`),
+    'grid': this.#loadTexture(`textures/grid.png`),
     
   };
 
   statusIcons = {
-    'no-power': this.#loadTexture(`${baseUrl}statusIcons/no-power.png`, true),
-    'no-road-access': this.#loadTexture(`${baseUrl}statusIcons/no-road-access.png`, true)
+    'no-power': this.#loadTexture(`statusIcons/no-power.svg`, true),
+    'no-road-access': this.#loadTexture(`statusIcons/no-road-access.svg`, true)
   }
 
   models = {};
@@ -77,8 +77,10 @@ export class AssetManager {
    * Load the 3D models
    * @param {string} url The URL of the model to load
    */
-  #loadModel(name, {filename, scale = 1, rotation = 0, receiveShadow = true, castShadow = true}) {
-    this.modelLoader.load(`${baseUrl}models/${filename}`,
+  #loadModel(name, {filename, type, scale = 1, rotation = 0, receiveShadow = true, castShadow = true}) {
+    // this.modelLoader.load(`${baseUrl}models/${filename}`,
+    this.modelLoader.load(`models/${filename}`,
+      
       (glb) => {
 
         let filetype = type;
