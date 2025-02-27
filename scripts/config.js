@@ -27,7 +27,7 @@ export default {
     },
     roadAccess: {
       // Max distance to search for a road when determining road access
-      searchDistance: 1       
+      searchDistance: 3       
     },
   },
   citizen: {

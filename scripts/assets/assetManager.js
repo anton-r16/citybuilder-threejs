@@ -1,20 +1,29 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import viteConfig from '../../vite.config.js';
-import models from './assets.js';
+import viteConfig from '../../../vite.config.js';
+import models from './models.js';
 
 const baseUrl = viteConfig.base;
 
 export class AssetManager {
   textureLoader = new THREE.TextureLoader();
   modelLoader = new GLTFLoader();
-  meshes = {};
 
   textures = {
     'base': this.#loadTexture(`${baseUrl}textures/base.png`),
     'specular': this.#loadTexture(`${baseUrl}textures/specular.png`),
-    'grid': this.#loadTexture(`${baseUrl}textures/grid.png`)
+    'grid': this.#loadTexture(`${baseUrl}textures/grid.png`),
+    
   };
+
+  statusIcons = {
+    'no-power': this.#loadTexture(`${baseUrl}statusIcons/no-power.png`, true),
+    'no-road-access': this.#loadTexture(`${baseUrl}statusIcons/no-road-access.png`, true)
+  }
+
+  models = {};
+
+  sprites = {};
 
   constructor(onLoad) {
     this.modelCount = Object.keys(models).length;
@@ -34,8 +43,8 @@ export class AssetManager {
    * @param {boolean} transparent True if materials should be transparent. Default is false.
    * @returns {THREE.Mesh}
    */
-  createInstance(name, simObject, transparent = false) {
-    const mesh = this.meshes[name].clone();
+  getModel(name, simObject, transparent = false) {
+    const mesh = this.models[name].clone();
 
     // Clone materials so each object has a unique material
     // This is so we can set the modify the texture of each
@@ -51,16 +60,16 @@ export class AssetManager {
 
     return mesh;
   }
-
+  
   /**
    * Loads the texture at the specified URL
    * @param {string} url 
    * @returns {THREE.Texture} A texture object
    */
-  #loadTexture(url) {
+  #loadTexture(url, flipY = false) {
     const texture = this.textureLoader.load(url)
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.flipY = false;
+    texture.flipY = flipY;
     return texture;
   }
 
@@ -68,7 +77,7 @@ export class AssetManager {
    * Load the 3D models
    * @param {string} url The URL of the model to load
    */
-  #loadModel(name, {filename, type, scale = 1, rotation = 0, receiveShadow = true, castShadow = true}) {
+  #loadModel(name, {filename, scale = 1, rotation = 0, receiveShadow = true, castShadow = true}) {
     this.modelLoader.load(`${baseUrl}models/${filename}`,
       (glb) => {
 
@@ -99,7 +108,7 @@ export class AssetManager {
           mesh.scale.set(scale / 30, scale / 30, scale / 30);
         }
 
-        this.meshes[name] = mesh;
+        this.models[name] = mesh;
 
         // Once all models are loaded
         this.loadedModelCount++;
