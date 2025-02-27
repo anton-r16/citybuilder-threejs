@@ -10,6 +10,7 @@ export default {
   
   // Set the build output directory
   build: {
-    outDir: './dist'
+    outDir: './dist',
+    chunkSizeWarningLimit: 1000,
   }
 }
