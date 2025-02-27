@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+.pnp/
+.pnp.js
+
+# Build output
+dist/
+
+# Vite cache
+.vite/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# Optional npm cache directory
+.npm/
